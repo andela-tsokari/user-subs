@@ -2,7 +2,7 @@
 ##About
 
 As part of my training, it was required that we build APIs in the Micro-Service Pattern.
-I built two APIs. One to handle user **[Subscriptions (Post and Tag)](#anchor1)**, and another for the **[User Service](#anchor2)**. You can find the Subscriptions Service API [here] and the User Service API [here]. 
+I built two APIs. One to handle user **[Subscriptions (Post and Tag)](#anchor1)**, and another for the **[User Service](#anchor2)**.  
 
 ---
 ###[Subscriptions API](id:anchor1)
