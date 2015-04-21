@@ -1,0 +1,30 @@
+{
+  "name": "user-subs",
+  "version": "1.0.0",
+  "description": "an api gateway connecting user service and subscriptions service",
+  "main": "server.js",
+  "scripts": {
+    "test": "export NODE_ENV=test && jasmine-node tests --autotest --watch --color"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:andela-tsokari/user-subs.git"
+  },
+  "keywords": [
+    "expressJS",
+    "microservices",
+    "api",
+    "gateway",
+    "authentication."
+  ],
+  "author": "Tams Sokari",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andela-tsokari/user-subs/issues"
+  },
+  "homepage": "https://github.com/andela-tsokari/user-subs",
+  "dependencies": {
+    "express": "^4.12.3",
+    "request": "^2.55.0"
+  }
+}
