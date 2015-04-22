@@ -4,7 +4,8 @@
   "description": "an api gateway connecting user service and subscriptions service",
   "main": "server.js",
   "scripts": {
-    "test": "export NODE_ENV=test && jasmine-node tests --autotest --watch --color"
+    "test": "export NODE_ENV=test && jasmine-node tests --autotest --watch --color",
+    "start-dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
