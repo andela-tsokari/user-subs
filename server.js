@@ -1,6 +1,7 @@
 var app = require('./config/app-config');
+var config = require('./config/api-config');
 
 app
-  .listen(process.env.PORT || 5000, function () {
-    console.log('Express App Listening on Port: ' + process.env.PORT || 5000);
+  .listen(config.port, function () {
+    console.log('User-Subscriptions Gateway-API Listening on Port: ' + config.port);
   });
