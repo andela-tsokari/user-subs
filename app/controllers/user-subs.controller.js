@@ -32,7 +32,7 @@ module.exports = {
         url: api.users + 'login',
         method: 'POST',
         form: req.body
-      }, 
+      },
 
       function(error, httpres, body) {
         if(error) {
@@ -121,7 +121,7 @@ module.exports = {
 
         });
 
-    }     
+    }
 
   },
 
@@ -199,7 +199,7 @@ module.exports = {
 
         });
 
-    }     
+    }
 
   },
 
@@ -277,7 +277,7 @@ module.exports = {
 
         });
 
-    }     
+    }
 
   },
 
@@ -357,7 +357,7 @@ module.exports = {
 
         });
 
-    }     
+    }
 
   },
 
@@ -438,7 +438,7 @@ module.exports = {
 
         });
 
-    }     
+    }
 
   },
 
@@ -522,7 +522,7 @@ module.exports = {
 
         });
 
-    }     
+    }
 
   },
 
@@ -601,7 +601,86 @@ module.exports = {
 
         });
 
-    }     
+    }
+
+  },
+
+  logout: function(req, res) {
+    var user = req.params.username;
+
+    var hWT = req.get('Authorization');
+
+    //check that Authorization is defined
+    if (typeof(hWT) === 'undefined') {
+      res
+        .json({
+          error: 'You need to add your access_token as an Authorization Header'
+        });
+
+    }
+
+    //to be used in cases where Authorization access_token is present
+    else {
+      request
+        .get({
+          url: api.users + '/auth',
+          method: 'GET',
+          headers: {
+            Authorization: hWT
+          }
+        },
+
+        function(error, response, body) {
+          if(error) {
+            res
+              .json({
+                error: JSON.parse(error)
+              });
+          }
+          else if (body) {
+            var body = JSON.parse(body);
+
+            if ((body.user === user) && (body.auth_status === true)) {
+
+              request
+                .get({
+                  url: api.users + body.user + '/logout',
+                  method: 'GET'
+                },
+
+                function(error, response, body) {
+                  if(error) {
+                    res
+                      .json({
+                        error: error
+                      });
+
+                  }
+
+                  else {
+                    res
+                      .send(JSON.parse(body));
+                    req
+                      .set('Authorization')
+
+                  }
+                });
+
+            }
+
+            else {
+              res
+                .json({
+                  error: 'You are not authorised to delete another user\'s subscription'
+                });
+
+            }
+
+          }
+
+        });
+
+    }
 
   }
 
