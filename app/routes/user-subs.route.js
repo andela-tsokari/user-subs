@@ -10,13 +10,17 @@ module.exports = function(router) {
     .post(userSubs.login);
 
   router
+    .route('/:username/logout')
+    .get(userSubs.logout);
+
+  router
     .route('/:username/subscriptions')
     .get(userSubs.getUserSubscriptions);
 
   router
     .route('/:username/subscriptions/posts')
     .get(userSubs.getUserPostSubscriptions);
-  
+
   router
     .route('/:username/subscriptions/tags')
     .get(userSubs.getUserTagSubscriptions);
