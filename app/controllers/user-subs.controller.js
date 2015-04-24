@@ -671,7 +671,7 @@ module.exports = {
             else {
               res
                 .json({
-                  error: 'You are not authorised to delete another user\'s subscription'
+                  error: 'You are not authorised to logout another user'
                 });
 
             }
