@@ -48,639 +48,209 @@ module.exports = {
   },
 
   getUserSubscriptions: function(req, res) {
-    var user = req.params.username;
+    request
+      .get({
+        url: api.subscriptions + req.params.username + '/subscriptions',
+        method: 'GET'
+      },
 
-    var hWT = req.get('Authorization');
+      function(error, response, body) {
+        if(error) {
+          res
+            .send({
+              error: error
+            });
 
-    //check that Authorization is defined
-    if (typeof(hWT) === 'undefined') {
-      res
-        .json({
-          error: 'You need to add your access_token as an Authorization Header'
-        });
+        }
 
-    }
+        else {
+          res
+            .json(JSON.parse(body));
 
-    //to be used in cases where Authorization access_token is present
-    else {
-      request
-        .get({
-          url: api.users + '/auth',
-          method: 'GET',
-          headers: {
-            Authorization: hWT
-          }
-        },
-
-        function(error, response, body) {
-          if(error) {
-            res
-              .json({
-                error: JSON.parse(error)
-              });
-          }
-          else if (body) {
-
-            var body = JSON.parse(body);
-
-            if ((body.user === user) && (body.auth_status === true)) {
-
-              request
-                .get({
-                  url: api.subscriptions + body.user + '/subscriptions',
-                  method: 'GET'
-                },
-
-                function(error, response, body) {
-                  if(error) {
-                    res
-                      .send({
-                        error: error
-                      });
-
-                  }
-
-                  else {
-                    res
-                      .json(JSON.parse(body));
-
-                  }
-                });
-
-            }
-
-            else {
-              res
-                .send({
-                  error: 'You are not authorised to view other users\' subscriptions'
-                });
-
-            }
-
-          }
-
-        });
-
-    }
+        }
+      });
 
   },
 
   getUserPostSubscriptions: function(req, res) {
-    var user = req.params.username;
+    request
+      .get({
+        url: api.subscriptions + req.params.username + '/subscriptions/posts',
+        method: 'GET'
+      },
 
-    var hWT = req.get('Authorization');
+      function(error, response, body) {
+        if(error) {
+          res
+            .json({
+              error: error
+            });
 
-    //check that Authorization is defined
-    if (typeof(hWT) === 'undefined') {
-      res
-        .json({
-          error: 'You need to add your access_token as an Authorization Header'
-        });
+        }
 
-    }
+        else {
+          res
+            .json(JSON.parse(body));
 
-    //to be used in cases where Authorization access_token is present
-    else {
-      request
-        .get({
-          url: api.users + '/auth',
-          method: 'GET',
-          headers: {
-            Authorization: hWT
-          }
-        },
-
-        function(error, response, body) {
-          if(error) {
-            res
-              .json({
-                error: JSON.parse(error)
-              });
-          }
-          else if (body) {
-
-            var body = JSON.parse(body);
-
-            if ((body.user === user) && (body.auth_status === true)) {
-
-              request
-                .get({
-                  url: api.subscriptions + body.user + '/subscriptions/posts',
-                  method: 'GET'
-                },
-
-                function(error, response, body) {
-                  if(error) {
-                    res
-                      .json({
-                        error: error
-                      });
-
-                  }
-
-                  else {
-                    res
-                      .json(JSON.parse(body));
-
-                  }
-                });
-
-            }
-
-            else {
-              res
-                .json({
-                  error: 'You are not authorised to view other user\'s subscriptions'
-                });
-
-            }
-
-          }
-
-        });
-
-    }
+        }
+      });
 
   },
 
   getUserTagSubscriptions: function(req, res) {
-    var user = req.params.username;
+    request
+      .get({
+        url: api.subscriptions + req.params.username + '/subscriptions/tags',
+        method: 'GET'
+      },
 
-    var hWT = req.get('Authorization');
+      function(error, response, body) {
+        if(error) {
+          res
+            .json({
+              error: error
+            });
 
-    //check that Authorization is defined
-    if (typeof(hWT) === 'undefined') {
-      res
-        .json({
-          error: 'You need to add your access_token as an Authorization Header'
-        });
+        }
 
-    }
+        else {
+          res
+            .json(JSON.parse(body));
 
-    //to be used in cases where Authorization access_token is present
-    else {
-      request
-        .get({
-          url: api.users + '/auth',
-          method: 'GET',
-          headers: {
-            Authorization: hWT
-          }
-        },
-
-        function(error, response, body) {
-          if(error) {
-            res
-              .json({
-                error: JSON.parse(error)
-              });
-          }
-          else if (body) {
-
-            var body = JSON.parse(body);
-
-            if ((body.user === user) && (body.auth_status === true)) {
-
-              request
-                .get({
-                  url: api.subscriptions + body.user + '/subscriptions/tags',
-                  method: 'GET'
-                },
-
-                function(error, response, body) {
-                  if(error) {
-                    res
-                      .json({
-                        error: error
-                      });
-
-                  }
-
-                  else {
-                    res
-                      .json(JSON.parse(body));
-
-                  }
-                });
-
-            }
-
-            else {
-              res
-                .json({
-                  error: 'You are not authorised to view other user\'s subscriptions'
-                });
-
-            }
-
-          }
-
-        });
-
-    }
+        }
+      });
 
   },
 
   getUserSubscription: function(req, res) {
-    var user = req.params.username;
+    request
+      .get({
+        url: api.subscriptions + req.params.username + '/subscription/' + req.params._id,
+        method: 'GET'
+      },
 
-    var id = req.params._id;
+      function(error, response, body) {
+        if(error) {
+          res
+            .json({
+              error: error
+            });
 
-    var hWT = req.get('Authorization');
+        }
 
-    //check that Authorization is defined
-    if (typeof(hWT) === 'undefined') {
-      res
-        .json({
-          error: 'You need to add your access_token as an Authorization Header'
-        });
+        else {
+          res
+            .json(JSON.parse(body));
 
-    }
-
-    //to be used in cases where Authorization access_token is present
-    else {
-      request
-        .get({
-          url: api.users + '/auth',
-          method: 'GET',
-          headers: {
-            Authorization: hWT
-          }
-        },
-
-        function(error, response, body) {
-          if(error) {
-            res
-              .json({
-                error: JSON.parse(error)
-              });
-          }
-          else if (body) {
-
-            var body = JSON.parse(body);
-
-            if ((body.user === user) && (body.auth_status === true)) {
-
-              request
-                .get({
-                  url: api.subscriptions + body.user + '/subscription/' + id,
-                  method: 'GET'
-                },
-
-                function(error, response, body) {
-                  if(error) {
-                    res
-                      .json({
-                        error: error
-                      });
-
-                  }
-
-                  else {
-                    res
-                      .json(JSON.parse(body));
-
-                  }
-                });
-
-            }
-
-            else {
-              res
-                .json({
-                  error: 'You are not authorised to view other user\'s subscriptions'
-                });
-
-            }
-
-          }
-
-        });
-
-    }
+        }
+      });
 
   },
 
   createNewSubscription: function(req, res) {
-    var user = req.params.username;
+    request
+      .post({
+        url: api.subscriptions + req.params.username + '/new-subs',
+        method: 'POST',
+        form: req.body
+      },
 
-    var hWT = req.get('Authorization');
+      function(error, response, body) {
+        if(error) {
+          res
+            .json({
+              error: error
+            });
 
-    //check that Authorization is defined
-    if (typeof(hWT) === 'undefined') {
-      res
-        .json({
-          error: 'You need to add your access_token as an Authorization Header'
-        });
+        }
 
-    }
+        else {
+          res
+            .json({
+              subscriptions: JSON.parse(body)
+            });
 
-    //to be used in cases where Authorization access_token is present
-    else {
-      request
-        .get({
-          url: api.users + '/auth',
-          method: 'GET',
-          headers: {
-            Authorization: hWT
-          }
-        },
-
-        function(error, response, body) {
-          if(error) {
-            res
-              .json({
-                error: JSON.parse(error)
-              });
-          }
-          else if (body) {
-
-            var body = JSON.parse(body);
-
-            if ((body.user === user) && (body.auth_status === true)) {
-
-              request
-                .post({
-                  url: api.subscriptions + body.user + '/new-subs',
-                  method: 'POST',
-                  form: req.body
-                },
-
-                function(error, response, body) {
-                  if(error) {
-                    res
-                      .json({
-                        error: error
-                      });
-
-                  }
-
-                  else {
-                    res
-                      .json({
-                        subscriptions: JSON.parse(body)
-                      });
-
-                  }
-                });
-
-            }
-
-            else {
-              res
-                .json({
-                  error: 'You are not authorised to create a subscription here'
-                });
-
-            }
-
-          }
-
-        });
-
-    }
+        }
+      });
 
   },
 
   editUserSubscription: function(req, res) {
-    var user = req.params.username;
-    var id = req.params._id;
+    request
+      .put({
+        url: api.subscriptions + req.params.username + '/subscription/' + req.params._id,
+        method: 'PUT',
+        form: req.body
+      },
 
-    var hWT = req.get('Authorization');
+      function(error, response, body) {
+        if(error) {
+          res
+            .json({
+              error: error
+            });
 
-    //check that Authorization is defined
-    if (typeof(hWT) === 'undefined') {
-      res
-        .json({
-          error: 'You need to add your access_token as an Authorization Header'
-        });
+        }
 
-    }
+        else {
+          res
+            .json({
+              subscriptions: JSON.parse(body)
+            });
 
-    //to be used in cases where Authorization access_token is present
-    else {
-      request
-        .get({
-          url: api.users + '/auth',
-          method: 'GET',
-          headers: {
-            Authorization: hWT
-          }
-        },
-
-        function(error, response, body) {
-          if(error) {
-            res
-              .json({
-                error: JSON.parse(error)
-              });
-          }
-          else if (body) {
-
-            var body = JSON.parse(body);
-
-            console.log(body.auth_status);
-
-            if ((body.user === user) && (body.auth_status === true)) {
-
-              request
-                .put({
-                  url: api.subscriptions + body.user + '/subscription/' + id,
-                  method: 'PUT',
-                  form: req.body
-                },
-
-                function(error, response, body) {
-                  if(error) {
-                    res
-                      .json({
-                        error: error
-                      });
-
-                  }
-
-                  else {
-                    res
-                      .json({
-                        subscriptions: JSON.parse(body)
-                      });
-
-                  }
-                });
-
-            }
-
-            else {
-              res
-                .json({
-                  error: 'You are not authorised to edit other user\'s subscription(s)'
-                });
-
-            }
-
-          }
-
-        });
-
-    }
+        }
+      });
 
   },
 
   deleteUserSubscription: function(req, res) {
-    var user = req.params.username;
-    var id = req.params._id;
+    request
+      .del({
+        url: api.subscriptions + req.params.username + '/subscription/' + req.params._id,
+        method: 'DELETE'
+      },
 
-    var hWT = req.get('Authorization');
+      function(error, response, body) {
+        if(error) {
+          res
+            .json({
+              error: error
+            });
 
-    //check that Authorization is defined
-    if (typeof(hWT) === 'undefined') {
-      res
-        .json({
-          error: 'You need to add your access_token as an Authorization Header'
-        });
+        }
 
-    }
+        else {
+          res
+            .json(JSON.parse(body));
 
-    //to be used in cases where Authorization access_token is present
-    else {
-      request
-        .get({
-          url: api.users + '/auth',
-          method: 'GET',
-          headers: {
-            Authorization: hWT
-          }
-        },
-
-        function(error, response, body) {
-          if(error) {
-            res
-              .json({
-                error: JSON.parse(error)
-              });
-          }
-          else if (body) {
-
-            var body = JSON.parse(body);
-
-            if ((body.user === user) && (body.auth_status === true)) {
-
-              request
-                .del({
-                  url: api.subscriptions + body.user + '/subscription/' + id,
-                  method: 'DELETE'
-                },
-
-                function(error, response, body) {
-                  if(error) {
-                    res
-                      .json({
-                        error: error
-                      });
-
-                  }
-
-                  else {
-                    res
-                      .json(JSON.parse(body));
-
-                  }
-                });
-
-            }
-
-            else {
-              res
-                .json({
-                  error: 'You are not authorised to delete another user\'s subscription'
-                });
-
-            }
-
-          }
-
-        });
-
-    }
+        }
+      });
 
   },
 
   logout: function(req, res) {
-    var user = req.params.username;
+    request
+      .get({
+        url: api.users + req.params.username + '/logout',
+        method: 'GET'
+      },
 
-    var hWT = req.get('Authorization');
+      function(error, response, body) {
+        if(error) {
+          res
+            .json({
+              error: error
+            });
 
-    //check that Authorization is defined
-    if (typeof(hWT) === 'undefined') {
-      res
-        .json({
-          error: 'You need to add your access_token as an Authorization Header'
-        });
+        }
 
-    }
+        else {
+          res
+            .send(JSON.parse(body));
 
-    //to be used in cases where Authorization access_token is present
-    else {
-      request
-        .get({
-          url: api.users + '/auth',
-          method: 'GET',
-          headers: {
-            Authorization: hWT
-          }
-        },
+        }
 
-        function(error, response, body) {
-          if(error) {
-            res
-              .json({
-                error: JSON.parse(error)
-              });
-          }
-          else if (body) {
-            var body = JSON.parse(body);
-
-            if ((body.user === user) && (body.auth_status === true)) {
-
-              request
-                .get({
-                  url: api.users + body.user + '/logout',
-                  method: 'GET'
-                },
-
-                function(error, response, body) {
-                  if(error) {
-                    res
-                      .json({
-                        error: error
-                      });
-
-                  }
-
-                  else {
-                    res
-                      .send(JSON.parse(body));
-                    req
-                      .set('Authorization')
-
-                  }
-                });
-
-            }
-
-            else {
-              res
-                .json({
-                  error: 'You are not authorised to logout another user'
-                });
-
-            }
-
-          }
-
-        });
-
-    }
+      });
 
   }
 
