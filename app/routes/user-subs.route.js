@@ -1,5 +1,7 @@
 var userSubs = require('./../controllers/user-subs.controller');
 
+var auth = require('./../../config/auth');
+
 module.exports = function(router) {
   router
     .route('/signup')
@@ -11,28 +13,28 @@ module.exports = function(router) {
 
   router
     .route('/:username/logout')
-    .get(userSubs.logout);
+    .get(auth, userSubs.logout);
 
   router
     .route('/:username/subscriptions')
-    .get(userSubs.getUserSubscriptions);
+    .get(auth, userSubs.getUserSubscriptions);
 
   router
     .route('/:username/subscriptions/posts')
-    .get(userSubs.getUserPostSubscriptions);
+    .get(auth, userSubs.getUserPostSubscriptions);
 
   router
     .route('/:username/subscriptions/tags')
-    .get(userSubs.getUserTagSubscriptions);
+    .get(auth, userSubs.getUserTagSubscriptions);
 
   router
     .route('/:username/new-subs')
-    .post(userSubs.createNewSubscription);
+    .post(auth, userSubs.createNewSubscription);
 
   router
     .route('/:username/subscription/:_id')
-    .get(userSubs.getUserSubscription)
-    .put(userSubs.editUserSubscription)
-    .delete(userSubs.deleteUserSubscription);
+    .get(auth, userSubs.getUserSubscription)
+    .put(auth, userSubs.editUserSubscription)
+    .delete(auth, userSubs.deleteUserSubscription);
 
 };
