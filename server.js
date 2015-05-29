@@ -1,7 +1,7 @@
 var app = require('./config/app-config');
-var config = require('./config/api-config');
+var port = require('./config/api-config')['port'];
 
 app
-  .listen(config.port, function () {
-    console.log('User-Subscriptions Gateway-API Listening on Port: ' + config.port);
+  .listen(port, function () {
+    console.log('User-Subscriptions Gateway-API Listening on Port: ' + port);
   });
